@@ -1,40 +1,38 @@
 // ==========================================
-// THEME SWITCHER - 2个主题切换
+// THEME SWITCHER - toggle between two themes
 // ==========================================
-const themeToggle = document.getElementById('themeToggle');
 const body = document.body;
 
-// 主题列表：Vibrant (默认) 和 Pastel
+// Theme list: Vibrant (default) and Pastel
 const themes = ['vibrant', 'pastel'];
 let currentThemeIndex = 0;
 
-// 从 localStorage 加载主题
+// Load theme from localStorage
 const savedTheme = localStorage.getItem('theme');
 if (savedTheme === 'pastel') {
     body.classList.add('theme-pastel');
     currentThemeIndex = 1;
 }
 
-// 切换主题 - 2个主题循环
-themeToggle.addEventListener('click', (e) => {
-    e.preventDefault();
-    
-    // 切换到下一个主题
-    currentThemeIndex = (currentThemeIndex + 1) % 2;
-    
-    if (currentThemeIndex === 1) {
-        // 切换到 Pastel
-        body.classList.add('theme-pastel');
-        localStorage.setItem('theme', 'pastel');
-    } else {
-        // 切换回 Vibrant (默认)
-        body.classList.remove('theme-pastel');
-        localStorage.setItem('theme', 'vibrant');
-    }
-    
-    // 更新粒子颜色
-    updateParticleColors();
-});
+// Theme toggle - guard missing element
+const themeToggle = document.getElementById('themeToggle');
+
+if (themeToggle) {
+    themeToggle.addEventListener('click', (e) => {
+        e.preventDefault();
+        currentThemeIndex = (currentThemeIndex + 1) % themes.length;
+        if (currentThemeIndex === 1) {
+            body.classList.add('theme-pastel');
+            localStorage.setItem('theme', 'pastel');
+        } else {
+            body.classList.remove('theme-pastel');
+            localStorage.setItem('theme', 'vibrant');
+        }
+        updateParticleColors();
+    });
+} else {
+    console.warn('#themeToggle not found — theme toggle disabled.');
+}
 
 // ==========================================
 // PARTICLE BACKGROUND
@@ -66,11 +64,11 @@ class Particle {
     }
     
     draw() {
-        // 根据主题切换粒子颜色
+        // set particle color according to theme
         const isPastel = body.classList.contains('theme-pastel');
         ctx.fillStyle = isPastel 
-            ? 'rgba(158, 197, 226, 0.5)'  // Pastel 天蓝色
-            : 'rgba(242, 183, 5, 0.5)';   // Vibrant 金黄色
+            ? 'rgba(158, 197, 226, 0.5)'  // Pastel sky blue
+            : 'rgba(242, 183, 5, 0.5)';   // Vibrant golden yellow
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fill();
@@ -78,7 +76,7 @@ class Particle {
 }
 
 function updateParticleColors() {
-    // 粒子颜色会在下一帧自动更新
+    // particle colors update on next frame automatically
 }
 
 for (let i = 0; i < particleCount; i++) {
@@ -147,7 +145,7 @@ class FullPageScroll {
             });
         });
         
-        // Touch events - 改进移动端滚动检测
+        // Touch events - improved mobile scroll detection
         let touchStart = 0;
         let touchStartTime = 0;
         
@@ -157,7 +155,7 @@ class FullPageScroll {
         });
         
         window.addEventListener('touchmove', (e) => {
-            // 允许section内部滚动
+            // allow internal section scrolling
             const activeSection = this.sections[this.current];
             const touchCurrent = e.touches[0].clientY;
             const diff = touchStart - touchCurrent;
@@ -165,9 +163,9 @@ class FullPageScroll {
             const atTop = activeSection.scrollTop === 0;
             const atBottom = activeSection.scrollHeight - activeSection.scrollTop <= activeSection.clientHeight + 10;
             
-            // 只在边界时阻止默认行为
+            // only prevent default at boundaries
             if ((diff > 0 && atBottom) || (diff < 0 && atTop)) {
-                // 不阻止，让touchend处理
+                // do not prevent here; let touchend handle it
             }
         });
         
@@ -182,14 +180,14 @@ class FullPageScroll {
             const atTop = activeSection.scrollTop === 0;
             const atBottom = activeSection.scrollHeight - activeSection.scrollTop <= activeSection.clientHeight + 10;
             
-            // 滑动阈值和时间检测
+            // swipe threshold and timing check
             if (Math.abs(diff) > 80 && touchDuration < 400) {
                 if (diff < 0 && atTop && this.current > 0) {
-                    // 向下拉（切换到上一个section）
+                    // pull down (switch to previous section)
                     e.preventDefault();
                     this.prev();
                 }
-                // 向上拉不自动切换，需要点击底部按钮
+                // pulling up does not auto-switch; use bottom button
             }
         });
     }
@@ -214,13 +212,13 @@ class FullPageScroll {
         const activeSection = this.sections[this.current];
         const atTop = activeSection.scrollTop === 0;
         
-        // 只在向上滚动到顶部时自动切换到上一个section
+        // only auto-switch to previous section when scrolling up at the top
         if (e.deltaY < 0 && atTop) {
             e.preventDefault();
             this.prev();
         }
         
-        // 向下滚动不自动切换，需要点击底部按钮
+        // scrolling down does not auto-switch; use bottom button
     }
     
     handleKeyboard(e) {
@@ -323,9 +321,20 @@ const moods = {
 
 // Mood visibility toggle
 const moodToggle = document.getElementById('moodToggle');
-const moodSection = document.getElementById('moodSection'); // Ensure you have a section for moods
+let moodSection = document.getElementById('moodSection');
 
-// Get secret mood element and create it if it doesn't exist
+// create a lightweight fallback moodSection so later code can append safely
+if (!moodSection) {
+    moodSection = document.createElement('div');
+    moodSection.id = 'moodSection';
+    moodSection.style.display = 'none';
+    // optional: append near top of main content so it's visible during testing
+    const main = document.querySelector('main') || document.body;
+    main.insertBefore(moodSection, main.firstChild);
+    console.warn('#moodSection missing — created fallback element');
+}
+
+// safe secretMood creation
 const secretMood = document.getElementById('secretMood') || (() => {
     const element = document.createElement('div');
     element.id = 'secretMood';
@@ -338,14 +347,21 @@ const secretMood = document.getElementById('secretMood') || (() => {
     return element;
 })();
 
-moodToggle.addEventListener('change', () => {
-    moodSection.style.display = moodToggle.checked ? 'block' : 'none';
-    secretMood.style.display = moodToggle.checked ? 'block' : 'none'; // Show secret mood when toggled
-});
+if (moodToggle) {
+    moodToggle.addEventListener('change', () => {
+        moodSection.style.display = moodToggle.checked ? 'block' : 'none';
+        secretMood.style.display = moodToggle.checked ? 'block' : 'none';
+    });
+} else {
+    console.warn('#moodToggle not found — mood visibility control disabled.');
+}
 
-// Initial state
-moodSection.style.display = moodToggle.checked ? 'block' : 'none';
-secretMood.style.display = 'none'; // Hide secret mood initially
+// ensure initial access is guarded
+if (document.getElementById('moodGenre')) {
+    setTodaysMood();
+} else {
+    console.warn('#moodGenre element missing — setTodaysMood skipped');
+}
 
 function setTodaysMood() {
     const genres = Object.keys(moods);
@@ -356,36 +372,34 @@ function setTodaysMood() {
     document.getElementById('moodDesc').textContent = moods[genre].description;
 }
 
-setTodaysMood();
-
 // ==========================================
 // MUSIC DATA
 // ==========================================
 const musicTracks = [
     { 
         title: 'Neon Dreams', 
-        genre: 'electronic',
+        genre: 'foryou',
         artist: 'Synthwave Collective',
         file: 'music/track1.mp3',
         cover: 'images/cover1.jpg'
     },
     { 
         title: 'Midnight Coffee', 
-        genre: 'chill',
+        genre: 'foryou',
         artist: 'Lo-Fi Beats',
         file: 'music/track2.mp3',
         cover: 'images/cover2.jpg'
     },
     { 
         title: 'Thunder Road', 
-        genre: 'rock',
+        genre: 'oursongs',
         artist: 'Electric Wolves',
         file: 'music/track3.mp3',
         cover: 'images/cover3.jpg'
     },
     { 
         title: 'Celestial Drift', 
-        genre: 'ambient',
+        genre: 'vibes:>',
         artist: 'Space Echoes',
         file: 'music/track4.mp3',
         cover: 'images/cover4.jpg'
@@ -545,7 +559,8 @@ function initAudioPlayer(card, track) {
 // Music filters
 document.querySelectorAll('.filter-btn').forEach(btn => {
     btn.addEventListener('click', () => {
-        document.querySelector('.filter-btn.active').classList.remove('active');
+        const currentlyActive = document.querySelector('.filter-btn.active');
+        if (currentlyActive) currentlyActive.classList.remove('active');
         btn.classList.add('active');
         
         const filter = btn.dataset.filter;
@@ -594,14 +609,14 @@ function loadPhotos() {
             </div>
         `;
         
-        // 点击照片打开灯箱
+        // click photo to open lightbox
         card.addEventListener('click', () => openLightbox(index));
         
         grid.appendChild(card);
     });
 }
 
-// 灯箱功能
+// Lightbox functionality
 const lightbox = document.getElementById('lightbox');
 const lightboxImg = document.getElementById('lightboxImg');
 const lightboxCaption = document.getElementById('lightboxCaption');
@@ -611,15 +626,15 @@ function openLightbox(index) {
     const photo = photos[index];
     lightboxImg.src = photo.image;
     lightboxImg.alt = photo.caption;
-    lightboxCaption.textContent = ''; // 不显示图片名字
+    lightboxCaption.textContent = ''; // do not show image name
     
-    // 显示灯箱
+    // display lightbox
     lightbox.style.display = 'flex';
     setTimeout(() => {
         lightbox.classList.add('active');
     }, 10);
     
-    // 禁止背景滚动
+    // disable background scrolling
     document.body.style.overflow = 'hidden';
 }
 
@@ -631,17 +646,17 @@ function closeLightbox() {
     }, 300);
 }
 
-// 关闭按钮
+// Close button
 lightboxClose.addEventListener('click', closeLightbox);
 
-// 点击背景关闭
+// click backdrop to close
 lightbox.addEventListener('click', (e) => {
     if (e.target === lightbox) {
         closeLightbox();
     }
 });
 
-// ESC 键关闭
+// ESC key to close
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && lightbox.classList.contains('active')) {
         closeLightbox();
@@ -728,15 +743,14 @@ let isPetting = false;
 let isMobile = window.innerWidth <= 768;
 let fadeInterval = null;
 
-// 检测设备类型
+// detect device type
 window.addEventListener('resize', () => {
     isMobile = window.innerWidth <= 768;
 });
 
 function updatePetHandPosition(x, y) {
     if (!petHand) return;
-    // 使用 pageX/pageY 考虑滚动位置
-    // fixed 定位使用的是视口坐标，所以直接用 clientX/clientY
+    // use clientX/clientY because petHand is fixed-position relative to viewport
     petHand.style.left = x + 'px';
     petHand.style.top = y + 'px';
     petHand.style.transform = 'translate(-50%, -50%)';
@@ -744,26 +758,26 @@ function updatePetHandPosition(x, y) {
     console.log('Window scroll - x:', window.scrollX, 'y:', window.scrollY);
 }
 
-// 音频淡入淡出函数
+// audio fade in/out helpers
 function fadeInAudio() {
     if (!purringAudio) return;
     
-    // 清除之前的淡出
+    // clear any previous fade
     if (fadeInterval) {
         clearInterval(fadeInterval);
         fadeInterval = null;
     }
     
-    // 从随机位置开始播放
+    // start playback from a random position if duration is available
     if (purringAudio.duration) {
         purringAudio.currentTime = Math.random() * purringAudio.duration;
     }
     
-    // 从 0 开始
+    // start from 0
     purringAudio.volume = 0;
     purringAudio.play().catch(e => console.log('Audio play failed:', e));
     
-    // 淡入到 1.0，持续 500ms
+    // fade in to 1.0 over 500ms
     const fadeInDuration = 500;
     const steps = 20;
     const stepTime = fadeInDuration / steps;
@@ -786,13 +800,13 @@ function fadeInAudio() {
 function fadeOutAudio() {
     if (!purringAudio) return;
     
-    // 清除之前的淡入
+    // clear any previous fade
     if (fadeInterval) {
         clearInterval(fadeInterval);
         fadeInterval = null;
     }
     
-    // 淡出到 0，持续 500ms
+    // fade out to 0 over 500ms
     const fadeOutDuration = 500;
     const steps = 20;
     const stepTime = fadeOutDuration / steps;
@@ -822,14 +836,14 @@ if (sleepingCat && sleepingCatContainer && petHand) {
     console.log('Window width:', window.innerWidth);
     console.log('Pet hand element:', petHand);
     
-    // 初始化 pet hand 位置
+    // initialize pet hand position off-screen
     petHand.style.left = '-200px';
     petHand.style.top = '-200px';
     petHand.style.display = 'none';
     
     console.log('Initial pet hand img src:', petHand.querySelector('img').src);
     
-    // 桌面端：按住左键跟随光标（整个容器区域）
+    // Desktop: hold left mouse to follow cursor (entire container)
     sleepingCatContainer.addEventListener('mousedown', (e) => {
         if (isMobile) return;
         console.log('=== Mouse down on cat (desktop) ===');
@@ -837,16 +851,16 @@ if (sleepingCat && sleepingCatContainer && petHand) {
         e.stopPropagation();
         isPetting = true;
         
-        // 显示手
+        // show hand
         petHand.classList.add('active');
         petHand.style.display = 'block';
         
-        // 开始播放呼噜声并淡入
+        // start purring audio and fade in
         fadeInAudio();
         
         updatePetHandPosition(e.clientX, e.clientY);
         
-        // 延迟检查，确保 DOM 更新
+        // delayed check to ensure DOM updated
         setTimeout(() => {
             console.log('Pet hand after show:', {
                 display: window.getComputedStyle(petHand).display,
@@ -872,12 +886,12 @@ if (sleepingCat && sleepingCatContainer && petHand) {
             petHand.classList.remove('active');
             petHand.style.display = 'none';
             
-            // 淡出呼噜声
+            // fade out purring audio
             fadeOutAudio();
         }
     });
     
-    // 移动端：按住跟随（和桌面端一样，整个容器区域）
+    // Mobile: hold to follow finger (same behavior as desktop)
     let isTouching = false;
     
     sleepingCatContainer.addEventListener('touchstart', (e) => {
@@ -896,11 +910,11 @@ if (sleepingCat && sleepingCatContainer && petHand) {
         console.log('Touch position - x:', x, 'y:', y);
         console.log('Touch pageX/pageY:', touch.pageX, touch.pageY);
         
-        // 显示手
+        // show hand
         petHand.classList.add('active');
         petHand.style.display = 'block';
         
-        // 开始播放呼噜声并淡入
+        // start purring audio and fade in
         fadeInAudio();
         
         updatePetHandPosition(x, y);
@@ -910,7 +924,7 @@ if (sleepingCat && sleepingCatContainer && petHand) {
         console.log('Pet hand classList:', petHand.classList.toString());
     });
     
-    // 移动端：跟随手指移动
+    // Mobile: follow finger movement
     document.addEventListener('touchmove', (e) => {
         if (isTouching) {
             console.log('Touch move');
@@ -924,7 +938,7 @@ if (sleepingCat && sleepingCatContainer && petHand) {
         }
     }, { passive: false });
     
-    // 移动端：松开隐藏
+    // Mobile: lift to hide
     document.addEventListener('touchend', (e) => {
         if (isTouching) {
             console.log('Touch end');
@@ -932,7 +946,7 @@ if (sleepingCat && sleepingCatContainer && petHand) {
             petHand.classList.remove('active');
             petHand.style.display = 'none';
             
-            // 淡出呼噜声
+            // fade out purring audio
             fadeOutAudio();
         }
     });
@@ -944,7 +958,7 @@ if (sleepingCat && sleepingCatContainer && petHand) {
             petHand.classList.remove('active');
             petHand.style.display = 'none';
             
-            // 淡出呼噜声
+            // fade out purring audio
             fadeOutAudio();
         }
     });

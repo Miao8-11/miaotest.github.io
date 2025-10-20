@@ -128,12 +128,12 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Add slight rotation to elements for hand-drawn feel */
 .music-card:nth-child(odd),
-.game-card:nth-child(odd) {
+.funsies-card:nth-child(odd) {
     transform: rotate(0.5deg);
 }
 
 .music-card:nth-child(even),
-.game-card:nth-child(even) {
+.funsies-card:nth-child(even) {
     transform: rotate(-0.5deg);
 }
 
@@ -222,7 +222,7 @@ body.theme-pastel::before {
 /* 手绘风格边框 - DoodleCSS 风格 */
 .music-card,
 .photo-card,
-.game-card,
+.funsies-card,
 .mood-card,
 .filter-btn,
 .social-link,
@@ -240,7 +240,7 @@ body.theme-pastel::before {
 /* 手绘波浪边框效果 */
 .music-card::before,
 .photo-card::before,
-.game-card::before,
+.funsies-card::before,
 .mood-card::before {
     content: '';
     position: absolute;
@@ -275,13 +275,13 @@ body.theme-pastel::before {
 /* 手绘抖动效果 */
 .music-card,
 .photo-card,
-.game-card {
+.funsies-card {
     transform: rotate(0.3deg);
 }
 
 .music-card:nth-child(even),
 .photo-card:nth-child(even),
-.game-card:nth-child(even) {
+.funsies-card:nth-child(even) {
     transform: rotate(-0.5deg);
 }
 
@@ -291,7 +291,7 @@ body.theme-pastel::before {
     box-shadow: 6px 8px 0 rgba(0, 0, 0, 0.4) !important;
 }
 
-.game-card:hover {
+.funsies-card:hover {
     transform: rotate(0deg) translateY(-8px) !important;
     box-shadow: 6px 8px 0 rgba(0, 0, 0, 0.4) !important;
 }
@@ -306,7 +306,7 @@ body.theme-pastel::before {
 .title-main,
 .mood-card h3,
 .track-title,
-.game-title {
+.funsies-title {
     text-shadow: 2px 2px 0 var(--c1),
                  -1px -1px 0 var(--c4),
                  1px 1px 0 var(--c2) !important;
@@ -362,7 +362,7 @@ body.theme-pastel::before {
 /* 纸张纹理效果 */
 .music-card,
 .photo-card,
-.game-card,
+.funsies-card,
 .mood-card {
     background-image: 
         repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(255,255,255,0.03) 2px, rgba(255,255,255,0.03) 4px),
@@ -1028,15 +1028,15 @@ body.theme-amori .theme-toggle {
     letter-spacing: 0.5px;
 }
 
-/* Games Grid */
-.games-grid {
+/* Funsies Grid */
+.funsies-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
     gap: 2rem;
     padding-bottom: 2rem;
 }
 
-.game-card {
+.funsies-card {
     position: relative;
     height: 500px;
     border-radius: 20px;
@@ -1046,7 +1046,7 @@ body.theme-amori .theme-toggle {
     box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
 }
 
-.game-card:hover {
+.funsies-card:hover {
     border-color: var(--c2);
     transform: translateY(-10px) rotate(0deg);
     box-shadow: 6px 8px 0 rgba(0, 0, 0, 0.3);
@@ -1059,7 +1059,7 @@ body.theme-amori .theme-toggle {
     transition: transform 0.5s;
 }
 
-.game-card:hover .game-img {
+.funsies-card:hover .game-img {
     transform: scale(1.1);
 }
 
@@ -1072,21 +1072,21 @@ body.theme-amori .theme-toggle {
     padding: 2rem;
 }
 
-.game-title {
+.funsies-title {
     font-family: var(--font-main);
     font-size: 2.5rem;
     color: var(--c5);
     margin-bottom: 1rem;
 }
 
-.game-desc {
+.funsies-desc {
     color: var(--c4);
     margin-bottom: 1rem;
     line-height: 1.6;
     font-size: 1.1rem;
 }
 
-.game-tags {
+.funsies-tags {
     display: flex;
     gap: 0.5rem;
     flex-wrap: wrap;
@@ -1239,7 +1239,7 @@ body.theme-amori .theme-toggle {
     }
     
     .music-grid,
-    .games-grid {
+    .funsies-grid {
         grid-template-columns: 1fr;
         padding-bottom: 3rem;
     }
