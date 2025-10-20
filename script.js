@@ -324,7 +324,19 @@ const moods = {
 // Mood visibility toggle
 const moodToggle = document.getElementById('moodToggle');
 const moodSection = document.getElementById('moodSection'); // Ensure you have a section for moods
-const secretMood = document.getElementById('secretMood'); // Ensure you have an element for the 'huhh' mood
+
+// Get secret mood element and create it if it doesn't exist
+const secretMood = document.getElementById('secretMood') || (() => {
+    const element = document.createElement('div');
+    element.id = 'secretMood';
+    element.innerHTML = `
+        <div class="mood-item" style="background-color: ${moods.huhh.color}">
+            <h3>SECRET MOOD: ${moods.huhh.description}</h3>
+        </div>
+    `;
+    moodSection.appendChild(element);
+    return element;
+})();
 
 moodToggle.addEventListener('change', () => {
     moodSection.style.display = moodToggle.checked ? 'block' : 'none';

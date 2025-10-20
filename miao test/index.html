@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Personal Blog</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Particle Background -->
+    <canvas id="particles"></canvas>
+    
+    <!-- Navigation -->
+    <nav class="nav">
+        <ul class="nav-menu">
+            <li><a href="#" data-section="0">About</a></li>
+            <li><a href="#" data-section="1">Music</a></li>
+            <li><a href="#" data-section="2">Photos</a></li>
+            <li><a href="#" data-section="3">Funsies</a></li>
+        </ul>
+    </nav>
+    
+    <!-- Section Dots -->
+    <div class="dots">
+        <span class="dot active" data-section="0"></span>
+        <span class="dot" data-section="1"></span>
+        <span class="dot" data-section="2"></span>
+        <span class="dot" data-section="3"></span>
+    </div>
+    
+    <!-- Bottom Navigation Button -->
+    <div class="bottom-nav" id="bottomNav">
+        <button class="bottom-nav-btn" id="bottomNavBtn">
+            <svg viewBox="0 0 24 24">
+                <path d="M7 10l5 5 5-5z"/>
+            </svg>
+        </button>
+    </div>
+    
+    <!-- Sections Container -->
+    <main class="container">
+        
+        <!-- About Section -->
+        <section class="section active" data-section="0">
+            <div class="content">
+                <div class="about-grid">
+                    <div class="about-left">
+                        <div class="profile-wrap">
+                            <img src="images/placeholder-profile.svg" alt="Profile" class="profile-img">
+                            <div class="name-overlay">
+                                <h1 class="title-main">YOUR NAME</h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="about-right">
+                        <p class="bio"> woah... what is this place??<br>
+                            Could it be part of a secret surprise? :o <br>
+                            <br>
+                        Welcome to your exclusive trip through these past 12 months :p<br>
+                        Happy one year anniversary love!</p>
+                        <div class="socials">
+                            <a href="#" class="social-link">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M9 18V5l12-2v13"></path>
+                                    <circle cx="6" cy="18" r="3"></circle>
+                                    <circle cx="18" cy="16" r="3"></circle>
+                                </svg>
+                            </a>
+                            <a href="#" class="social-link">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+                                    <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                                    <polyline points="21 15 16 10 5 21"></polyline>
+                                </svg>
+                            </a>
+                            <a href="#" class="social-link">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="2" y="7" width="20" height="15" rx="2"></rect>
+                                    <polyline points="17 2 12 7 7 2"></polyline>
+                                </svg>
+                            </a>
+                            <button class="social-link theme-toggle" id="themeToggle" title="Switch Theme">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="5"></circle>
+                                    <line x1="12" y1="1" x2="12" y2="3"></line>
+                                    <line x1="12" y1="21" x2="12" y2="23"></line>
+                                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                                    <line x1="1" y1="12" x2="3" y2="12"></line>
+                                    <line x1="21" y1="12" x2="23" y2="12"></line>
+                                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="video-wrap">
+                    <video autoplay muted loop playsinline class="video">
+                        <source src="videos/showcase.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Music Section -->
+        <section class="section" data-section="1">
+            <div class="content">
+                <h2 class="section-title">Music</h2>
+
+                
+                <div class="mood-card">
+                    <svg class="mood-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 18V5l12-2v13"></path>
+                        <circle cx="6" cy="18" r="3"></circle>
+                        <circle cx="18" cy="16" r="3"></circle>
+                    </svg>
+                    <h3>Playlist of the day!</h3>
+                    <p class="mood-genre" id="moodGenre">miao</p>
+                    <p class="mood-desc" id="moodDesc">▶︎•၊၊||၊|။|||| | ။</p>
+                </div>
+                
+                <div class="filters">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="songss">For you</button>
+                    <button class="filter-btn" data-filter="others">Our songs</button>
+                    <button class="filter-btn" data-filter="chill">Vibes :> </button>
+                </div>
+                
+                <div style="text-align: center; margin-top: 10px;">
+                    <button class="filter-btn cata" data-filter="huhh" onclick="handleButtonClick(this)">⋆˚࿔♫⋆˚࿔</button>
+                    <script>
+    let clickCount = 0;
+
+    // List of available sound effect files (place these under a "sounds/" folder)
+    const soundEffects = [
+        'sounds/bloxy-cola.mp3',
+        'sounds/cat-laugh-meme-1.mp3',
+        'sounds/deltarune-explosion.mp3',
+        'sounds/duck-toy-sound.mp3',
+        'sounds/metal-pipe-clang.mp3',
+        'sounds/mmm-cheezburger.mp3',
+        'sounds/ralsei-splat.mp3',
+        'sounds/rizz-sound-effect.mp3',
+        'sounds/roblox-death-sound_1.mp3',
+        'sounds/sad-trombone-gaming-sound-effect-hd.mp3',
+        'sounds/slowed-down-roblox-death-noise.mp3',
+        'sounds/vine-boom.mp3',
+    
+    ];
+
+    function handleButtonClick(button) {
+        // Toggle target class if element exists
+        const target = document.querySelector('.huhh');
+        if (target) target.classList.toggle('show');
+
+        // Keep track of recently played sounds to avoid repetition
+        if (!window.playedSounds) {
+            window.playedSounds = new Set();
+        }
+
+        // Get available sounds (ones not recently played)
+        let availableSounds = soundEffects.filter(s => !window.playedSounds.has(s));
+        
+        // If all sounds have been played, reset the tracking
+        if (availableSounds.length === 0) {
+            window.playedSounds.clear();
+            availableSounds = soundEffects;
+        }
+
+        // Pick random sound from available ones
+        const randomSound = availableSounds[Math.floor(Math.random() * availableSounds.length)];
+        window.playedSounds.add(randomSound);
+
+        // Play the sound (at half volume)
+        try {
+            const audio = new Audio(randomSound);
+            // Map desired dB SPL to a linear volume [0,1].
+            // Note: dB SPL depends on device/output and cannot be guaranteed from JS.
+            // You must calibrate `fullScaleSPL` for your target device; adjust as needed.
+            const desiredSPL = 70;           // target in dB (your request)
+            const fullScaleSPL = 100;        // estimated dB SPL at audio.volume = 1 on this device (calibrate)
+            const relativeDb = desiredSPL - fullScaleSPL;
+            audio.volume = Math.max(0, Math.min(1, Math.pow(10, relativeDb / 20)));
+            audio.playbackRate = 1.15; // 15% quicker
+            audio.play().catch(() => {
+            // Autoplay may be blocked — user interaction required
+            });
+        } catch (err) {
+            console.warn('Error playing sound:', randomSound, err);
+        }
+
+        // Count clicks and trigger secret on 5
+        clickCount++;
+        if (clickCount === 5) {
+            const mg = document.getElementById('moodGenre');
+            if (mg) mg.textContent = 'egg';
+            clickCount = 0;
+        }
+    }
+</script>
+                </div>
+                
+                <div class="music-grid" id="musicGrid"></div>
+            </div>
+        </section>
+        
+        <!-- Photos Section -->
+        <section class="section" data-section="2">
+            <div class="content">
+                <h2 class="section-title">Photos</h2>
+                <div class="photos-grid" id="photosGrid"></div>
+            </div>
+        </section>
+        
+        <!-- Funsies Section -->
+        <section class="section" data-section="3">
+            <div class="content">
+                <h2 class="section-title">Funsies</h2>
+                <div class="funsies-grid" id="funsiesGrid"></div>
+                
+                <!-- Sleeping Cat -->
+                <div class="sleeping-cat-container">
+                    <div class="pat-me-label">pat me</div>
+                    <img src="sleepingcat.gif" alt="Sleeping Cat" class="sleeping-cat" id="sleepingCat">
+                </div>
+            </div>
+        </section>
+        
+    </main>
+    
+    <!-- Pet Hand Container - Outside sections to avoid transform context -->
+    <div class="pet-hand" id="petHand">
+        <img src="pethand.gif" alt="Pet Hand">
+    </div>
+    
+    <!-- Purring Cat Audio -->
+    <audio id="purringAudio" preload="auto">
+        <source src="purring-cat.mp3" type="audio/mpeg">
+    </audio>
+    
+    <!-- Lightbox for Photos -->
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-content">
+            <button class="lightbox-close" id="lightboxClose">&times;</button>
+            <img src="" alt="" class="lightbox-img" id="lightboxImg">
+            <div class="lightbox-caption" id="lightboxCaption"></div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

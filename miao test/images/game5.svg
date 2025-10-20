@@ -1,0 +1,20 @@
+<svg width="500" height="300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="gameGrad5">
+      <stop offset="0%" style="stop-color:#8B0000;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#000000;stop-opacity:1" />
+    </radialGradient>
+  </defs>
+  <rect width="500" height="300" fill="url(#gameGrad5)"/>
+  <!-- Greek columns -->
+  <rect x="100" y="100" width="20" height="120" fill="#D4AF37" opacity="0.7"/>
+  <rect x="140" y="100" width="20" height="120" fill="#D4AF37" opacity="0.7"/>
+  <rect x="340" y="100" width="20" height="120" fill="#D4AF37" opacity="0.7"/>
+  <rect x="380" y="100" width="20" height="120" fill="#D4AF37" opacity="0.7"/>
+  <!-- Flames -->
+  <polygon points="250,80 260,110 240,110" fill="#FF4500" opacity="0.8"/>
+  <polygon points="250,70 265,110 235,110" fill="#FF6347" opacity="0.6"/>
+  <polygon points="250,60 270,110 230,110" fill="#FFA500" opacity="0.4"/>
+  <text x="250" y="260" font-family="Times New Roman, serif" font-size="40" fill="#D4AF37" text-anchor="middle" font-weight="bold" font-style="italic">HADES</text>
+</svg>
+
