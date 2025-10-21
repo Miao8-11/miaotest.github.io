@@ -1,0 +1,8 @@
+<svg width="800" height="800" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="800" fill="#90AEAD"/>
+  <circle cx="200" cy="200" r="100" fill="#FBE9D0" opacity="0.5"/>
+  <circle cx="600" cy="300" r="120" fill="#874F41" opacity="0.4"/>
+  <circle cx="400" cy="500" r="150" fill="#E64833" opacity="0.3"/>
+  <text x="400" y="720" font-family="Arial" font-size="32" fill="#244855" text-anchor="middle" font-weight="bold">Abstract Art</text>
+</svg>
+

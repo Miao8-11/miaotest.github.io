@@ -1,0 +1,21 @@
+<svg width="400" height="400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="coverGrad4">
+      <stop offset="0%" style="stop-color:#1A237E;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#000051;stop-opacity:1" />
+    </radialGradient>
+  </defs>
+  <rect width="400" height="400" fill="url(#coverGrad4)"/>
+  <!-- Stars and planets -->
+  <circle cx="200" cy="200" r="50" fill="#4A148C" opacity="0.6"/>
+  <circle cx="200" cy="200" r="40" fill="#6A1B9A" opacity="0.7"/>
+  <circle cx="200" cy="200" r="30" fill="#7B1FA2" opacity="0.8"/>
+  <circle cx="100" cy="100" r="3" fill="white" opacity="0.9"/>
+  <circle cx="320" cy="80" r="2" fill="white" opacity="0.8"/>
+  <circle cx="150" cy="300" r="4" fill="white" opacity="0.9"/>
+  <circle cx="350" cy="250" r="3" fill="white" opacity="0.7"/>
+  <circle cx="80" cy="200" r="2" fill="white" opacity="0.8"/>
+  <circle cx="300" cy="320" r="3" fill="white" opacity="0.9"/>
+  <text x="200" y="370" font-family="Arial, sans-serif" font-size="26" fill="#B39DDB" text-anchor="middle" font-weight="300" letter-spacing="4">A M B I E N T</text>
+</svg>
+
