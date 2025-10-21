@@ -1,7 +1,0 @@
-<svg width="800" height="800" xmlns="http://www.w3.org/2000/svg">
-  <rect width="800" height="800" fill="#874F41"/>
-  <polygon points="400,100 700,700 100,700" fill="#FBE9D0" opacity="0.3"/>
-  <circle cx="400" cy="400" r="200" fill="#90AEAD" opacity="0.4"/>
-  <text x="400" y="720" font-family="Arial" font-size="32" fill="#FBE9D0" text-anchor="middle" font-weight="bold">Mountain Peak</text>
-</svg>
-
